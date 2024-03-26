@@ -1,15 +1,19 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <PageHeader /> <!-- 헤더 컴포넌트 -->
+  <router-view /> <!-- 페이지 이동이 표시될 곳 -->
+  <PageFooter /> <!-- 푸터 컴포넌트 -->
   <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PageHeader from '@/components/PageHeader.vue'
+import PageFooter from '@/components/PageFooter.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    PageHeader,
+    PageFooter
   }
 }
 </script>
@@ -21,6 +25,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
