@@ -3,6 +3,20 @@
     <div class="common-buttons">
       <button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnWrite">등록</button>
     </div>
+    <div>
+      <select v-model="search_key">
+        <option value="">- 선택 -</option>
+        <option value="t">제목</option>
+        <option value="c">내용</option>
+        <option value="w">작성자</option>
+        <option value="tc">제목 + 내용</option>
+        <option value="tw">제목 + 작성자</option>
+      </select>
+      &nbsp;
+      <input type="text" v-model="search_value" @keyup.enter="fnSearch()">
+      &nbsp;
+      <button @click="fnSearch()">검색</button>
+    </div>
     <table class="w3-table-all">
       <thead>
       <tr>
@@ -24,12 +38,16 @@
     <div class="pagination w3-bar w3-padding-16 w3-small" v-if="paging.totalPage > 0">
       <span class="pg">
         <a href="javascript:;" @click="fnPage(1)" class="first w3-button w3-bar-item w3-border">&lt;&lt;</a>
-        <a href="javascript:;" v-if="paging.prev" @click="fnPage(paging.page - 1)" class="prev w3-button w3-bar-item w3-border">&lt;</a>
+        <a href="javascript:;" v-if="paging.prev" @click="fnPage(paging.page - 1)"
+           class="prev w3-button w3-bar-item w3-border">&lt;</a>
         <template v-for="pageNumber in paging.pageList" :key="pageNumber">
-          <a :class="{ 'w3-button': true, 'w3-bar-item': true, 'w3-border': true, 'active': pageNumber === paging.page }" href="javascript:;" @click="fnPage(pageNumber)">{{ pageNumber }}</a>
+          <a :class="{ 'w3-button': true, 'w3-bar-item': true, 'w3-border': true, 'active': pageNumber === paging.page }"
+             href="javascript:;" @click="fnPage(pageNumber)">{{ pageNumber }}</a>
         </template>
-        <a href="javascript:;" v-if="paging.next" @click="fnPage(paging.page + 1)" class="next w3-button w3-bar-item w3-border">&gt;</a>
-        <a href="javascript:;" @click="fnPage(paging.totalPage)" class="last w3-button w3-bar-item w3-border">&gt;&gt;</a>
+        <a href="javascript:;" v-if="paging.next" @click="fnPage(paging.page + 1)"
+           class="next w3-button w3-bar-item w3-border">&gt;</a>
+        <a href="javascript:;" @click="fnPage(paging.totalPage)"
+           class="last w3-button w3-bar-item w3-border">&gt;&gt;</a>
       </span>
     </div>
   </div>
@@ -39,10 +57,11 @@
 export default {
   data() { //변수생성
     return {
-      requestBody: {
-        page: 1,
-        size: 10 // 페이지당 아이템 수
-      },
+      requestBody: {},
+      page: this.$route.query.page ? this.$route.query.page : 1,
+      size: this.$route.query.size ? this.$route.query.size : 10,
+      search_key: this.$route.query.type ? this.$route.query.type : '',
+      search_value: this.$route.query.keywords ? this.$route.query.keywords : '',
       list: [], // 리스트 데이터
       paging: {
         totalPage: 0,
@@ -60,7 +79,8 @@ export default {
   methods: {
     fnGetList() {
       this.requestBody = { // 데이터 전송
-        keyword: this.keyword,
+        type: this.search_key,
+        keywords: this.search_value,
         page: this.page,
         size: this.size
       }
@@ -102,7 +122,10 @@ export default {
         this.page = n
         this.fnGetList()
       }
-    }
+    },
+    fnSearch() {
+      this.fnGetList()
+    },
   }
 }
 </script>
