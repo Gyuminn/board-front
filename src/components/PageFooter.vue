@@ -1,7 +1,7 @@
 <template>
   <hr/>
   <footer>
-    여기는 footer
+    KB
   </footer>
 </template>
 
