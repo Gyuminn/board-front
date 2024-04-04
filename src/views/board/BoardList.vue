@@ -30,8 +30,9 @@
       <tr v-for="(row, idx) in list" :key="idx">
         <td>{{ row.postId }}</td>
         <td><a v-on:click="fnView(`${row.postId}`)">{{ row.title }}</a></td>
-        <td>{{ row.userId }}</td>
-        <td>{{ row.regDate }}</td>
+        <td>{{ row.emailId }}</td>
+        <td>{{ row.regDate.substring(0,4) + "년 " + row.regDate.substring(5,7) +"월 " + row.regDate.substring(8,10) + "일 "
+        + row.regDate.substring(11,13) + "시 " + row.regDate.substring(14,16) + "분" }}</td>
       </tr>
       </tbody>
     </table>
@@ -85,7 +86,7 @@ export default {
         size: this.size
       }
 
-      this.$axios.get(this.$serverUrl + "/posts", {
+      this.$axios.get(this.$serverUrl + "/posts/list", {
         params: this.requestBody,
         headers: {}
       }).then((res) => {
