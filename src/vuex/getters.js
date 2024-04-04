@@ -1,6 +1,6 @@
 // src/vuex/getters.js
 export default {
-    getUserId: state => state.userId,
+    getAccessToken: state => state.accessToken,
     getErrorState: state => state.errorState,
     getIsAuth: state => state.isAuth,
     loggedIn(state) {

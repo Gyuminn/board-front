@@ -6,7 +6,7 @@
     </div>
     <div class="board-contents">
       <input type="text" v-model="title" class="w3-input w3-border" placeholder="제목을 입력해주세요.">
-      <input type="text" v-model="userId" class="w3-input w3-border" placeholder="userId를 입력해주세요." v-if="idx === undefined">
+<!--      <input type="text" v-model="emailId" class="w3-input w3-border" placeholder="emailId를 입력해주세요." v-if="idx === undefined">-->
     </div>
     <div class="board-contents">
       <textarea id="" cols="30" rows="10" v-model="content" class="w3-input w3-border" style="resize: none;">
@@ -28,7 +28,6 @@ export default {
       isUpdate: this.$route.query.isUpdate,
 
       title: '',
-      userId: '',
       content: '',
       regDate: ''
     }
@@ -43,6 +42,7 @@ export default {
         ).then((res) => {
           this.title = res.data.data.title
           this.userId = res.data.data.userId
+          this.emailId = res.data.data.emailId
           this.content = res.data.data.content
           this.regDate = res.data.data.regDate
         }).catch((err) => {
@@ -65,13 +65,14 @@ export default {
       })
     },
     fnSave() {
-      let registerUrl = this.$serverUrl + '/posts/register'
-      let updateUrl = this.$serverUrl + '/posts/update'
+      let registerUrl = this.$serverUrl + '/auth/register'
+      let updateUrl = this.$serverUrl + '/auth/update'
       this.form = {
         "postId": this.postId,
         "title": this.title,
         "content": this.content,
-        "userId": this.userId
+        "userId": this.userId,
+        "emailId": this.emailId
       }
 
       if (!this.isUpdate && this.postId === undefined) {

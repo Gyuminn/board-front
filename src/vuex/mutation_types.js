@@ -1,4 +1,4 @@
 // src/vuex/mutation_types.js
-export const USER_ID = 'USER_ID'
+export const ACCESS_TOKEN = 'ACCESS_TOKEN'
 export const ERROR_STATE = 'ERROR_STATE'
 export const IS_AUTH = 'IS_AUTH'

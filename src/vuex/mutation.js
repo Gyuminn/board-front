@@ -2,8 +2,8 @@
 import * as types from './mutation_types'
 
 export default {
-    [types.USER_ID] (state, userId) {
-        state.userId = userId
+    [types.ACCESS_TOKEN] (state, accessToken) {
+        state.accessToken = accessToken
     },
     [types.ERROR_STATE] (state, errorState) {
         state.errorState = errorState
